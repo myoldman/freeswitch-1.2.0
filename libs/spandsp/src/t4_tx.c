@@ -100,6 +100,19 @@ static const TIFFFieldInfo tiff_fx_tiff_field_info[] =
     {TIFFTAG_IMAGELAYER, 2, 2, TIFF_LONG, FIELD_CUSTOM, FALSE, FALSE, (char *) "ImageLayer"},
 };
 
+SPAN_DECLARE(void) set_lab_gamut(lab_params_t *s, int L_min, int L_max, int a_min, int a_max, int b_min, int b_max, int ab_are_signed)
+{
+}
+
+SPAN_DECLARE(void) set_lab_illuminant(lab_params_t *s, float new_xn, float new_yn, float new_zn)
+{
+}
+
+SPAN_DECLARE(void) lab_to_srgb(lab_params_t *s, uint8_t srgb[], const uint8_t lab[], int pixels)
+{
+}
+
+
 static void t4_tx_set_image_length(t4_tx_state_t *s, int image_length);
 
 static TIFFExtendProc _ParentExtender = NULL;

@@ -42,7 +42,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="E:\work\ptlib\include;&quot;E:\work\opal-3.10.6\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MOD_EXPORTS;ALLOW_SMP_DANGERS"
 				UsePrecompiledHeader="0"
 				DisableSpecificWarnings="4100;4101"

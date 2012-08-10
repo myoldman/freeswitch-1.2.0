@@ -1689,12 +1689,19 @@ uint8_t sofia_reg_handle_register(nua_t *nua, sofia_profile_t *profile, nua_hand
 	if (regtype == REG_REGISTER) {
 		char exp_param[128] = "";
 		char date[80] = "";
+		char username_header[64] = "";
 		switch_event_t *s_mwi_event = NULL;
 
 		switch_console_callback_match_t *contact_list = NULL;
 		tagi_t *contact_tags;
 		switch_console_callback_match_node_t *m;
 		int i;
+		
+		switch_xml_t user;
+		if (switch_xml_locate_user_merged("id", sip->sip_from->a_url->url_user, sip->sip_contact->m_url->url_host, NULL, &user, NULL) == SWITCH_STATUS_SUCCESS) {
+			const char *username = switch_xml_attr(user, "username");
+			switch_snprintf(username_header, sizeof(username_header), "username: %s", username==NULL? "δ֪":username);
+		}
 
 		s_event = NULL;
 
@@ -1772,7 +1779,7 @@ uint8_t sofia_reg_handle_register(nua_t *nua, sofia_profile_t *profile, nua_hand
 			   remove this condition later if nobody complains about the extra select of the below new behavior
 			   also remove the parts in mod_sofia.h, sofia.c and sofia_reg.c that refer to reg_deny_binding_fetch_and_no_lookup */
 			nua_respond(nh, SIP_200_OK, TAG_IF(contact, SIPTAG_CONTACT(sip->sip_contact)), TAG_IF(path_val, SIPTAG_PATH_STR(path_val)),
-			                            NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date), TAG_END());
+				NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date), TAG_END());
  
 		} else if ((contact_list = sofia_reg_find_reg_url_with_positive_expires_multi(profile, from_user, reg_host))) {
 			/* all + 1 tag_i elements initialized as NULL - last one implies TAG_END() */
@@ -1785,7 +1792,7 @@ uint8_t sofia_reg_handle_register(nua_t *nua, sofia_profile_t *profile, nua_hand
 			}
 
 			nua_respond(nh, SIP_200_OK, TAG_IF(path_val, SIPTAG_PATH_STR(path_val)),
-			                            NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date), TAG_NEXT(contact_tags));
+			                            NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date), SIPTAG_HEADER_STR(username_header), TAG_NEXT(contact_tags));
 
 			switch_safe_free(contact_tags);
 			switch_console_free_matches(&contact_list);
@@ -1793,7 +1800,7 @@ uint8_t sofia_reg_handle_register(nua_t *nua, sofia_profile_t *profile, nua_hand
 		} else {
 			/* respond without any contacts */
 			nua_respond(nh, SIP_200_OK, TAG_IF(path_val, SIPTAG_PATH_STR(path_val)),
-			                            NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date), TAG_END());
+			                            NUTAG_WITH_THIS_MSG(de->data->e_msg), SIPTAG_DATE_STR(date),SIPTAG_HEADER_STR(username_header), TAG_END());
 		}
 
 

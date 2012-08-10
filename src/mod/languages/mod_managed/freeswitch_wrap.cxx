@@ -10881,7 +10881,7 @@ SWIGEXPORT int SWIGSTDCALL CSharp_switch_core_chat_send_args(char * jarg1, char 
   arg6 = (char *)jarg6; 
   arg7 = (char *)jarg7; 
   arg8 = (char *)jarg8; 
-  result = (switch_status_t)switch_core_chat_send_args((char const *)arg1,(char const *)arg2,(char const *)arg3,(char const *)arg4,(char const *)arg5,(char const *)arg6,(char const *)arg7,(char const *)arg8);
+  result = (switch_status_t)switch_core_chat_send_args((char const *)arg1,(char const *)arg2,(char const *)arg3,(char const *)arg4,(char const *)arg5,(char const *)arg6,(char const *)arg7,(char const *)arg8, SWITCH_FALSE);
   jresult = result; 
   return jresult;
 }
