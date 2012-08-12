@@ -62,7 +62,6 @@ TAGS
 /a.out.dSYM
 /AUTHORS
 /ChangeLog
-/configure
 /COPYING
 /freeswitch
 /fs_cli
@@ -124,10 +123,8 @@ TAGS
 /libs/libcodec2/libtool
 /libs/libcodec2/ltmain.sh
 /libs/libcodec2/Makefile
-/libs/libcodec2/Makefile.in
 /libs/libcodec2/missing
 /libs/libcodec2/src/Makefile
-/libs/libcodec2/src/Makefile.in
 /libs/libcodec2/unittest/Makefile
 /libs/libcodec2/unittest/Makefile.in
 /libs/mpg123-1.13.2/
